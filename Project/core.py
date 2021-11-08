@@ -37,6 +37,7 @@ def main():
     df = import_nfl(2020)
     df = wl_calculator(df)
     df = df.pivot_table(values=['PCT_Team','PCT_Opponent'], index='Team',aggfunc=['mean','sum'],fill_value=0,sort=True)
+    df.columns = ['_'.join(col).strip() for col in df.columns.values]
     df.to_csv('Test.CSV')
 
 
