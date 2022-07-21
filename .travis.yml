@@ -1,0 +1,18 @@
+
+branches:
+  # If you enable "Build pushed branches" in Travis CI settings,
+  # all branches will be built
+  # This just ensures that at least these are built
+  only: [main]
+
+language: python
+
+python: ["3.9"]
+
+before_install:
+  - python -m pip install --upgrade pip
+
+install:
+- pip install .
+
+script: pytest

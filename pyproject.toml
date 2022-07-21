@@ -1,0 +1,73 @@
+# NOTE: you have to use single-quoted strings in TOML for regular expressions. It's the equivalent of r-strings in Python.  Multiline strings are treated as
+# verbose regular expressions by Black.  Use [ ] to denote a significant space character.
+
+# When deploying to new project:
+# 1. Ctrl+F replace "PyTemplate" with module name
+# 2. Update description
+# 3. Add any necessary dependencies / dev-dependencies as you install them
+
+[build-system]
+requires = ['setuptools >= 40.6.0', 'wheel']
+build-backend = 'setuptools.build_meta'
+
+[project]
+name = 'NFL_SOS'
+# Versions are [Year].[Release of Year]
+version = '2022.1'
+description = 'NFL strength of schedule calculator'
+requires-python = '>=3.7'
+license = {file = "LICENSE.txt"}
+keywords = ['Python']
+authors = [{email = 'kylekaptbone@yahoo.com'},{name = 'Kyle Patterson'}]
+classifiers = ['Programming Language :: Python']
+dynamic = ['readme']
+dependencies = [
+    'pandas>=1.4.3',
+    'lxml>=4.9.1',
+    ]
+
+
+[project.optional-dependencies]
+dev = [
+'black>=22.3.0',
+'flake8>=4.0.1',
+'flake8-html>=0.4.2',
+'genbadge>=1.1.0',
+'isort>=5.10.1',
+'pytest>=7.1.2',
+'coverage>=6.4.2',
+'pre-commit>=2.20.0',
+'defusedxml>=0.7.1'
+]
+
+[project.urls]
+homepage = 'https://github.com/kylekap/NFL_SOS'
+documentation = 'https://github.com/kylekap/NFL_SOS/tree/main/docs'
+repository = 'https://github.com/kylekap/NFL_SOS'
+changelog = 'https://github.com/kylekap/NFL_SOS/tree/main/Docs/Changelog.md'
+
+[tool.setuptools.dynamic]
+readme = {file = ['README.md']}
+
+
+[tool.black]
+line-length = 120
+target_version = ['py39']
+
+[tool.coverage.paths]
+source = ['src']
+tests = ['tests']
+
+[tool.coverage.run]
+source = ['src']
+
+[tool.coverage.report]
+show_missing = true
+exclude_lines = ["if __name__ == .__main__.:"]
+
+[tool.isort]
+import_heading_firstparty = 'First-party/Local'
+import_heading_future = 'Future'
+import_heading_stdlib = 'Standard library'
+import_heading_thirdparty = 'Third-party'
+profile = 'black'
