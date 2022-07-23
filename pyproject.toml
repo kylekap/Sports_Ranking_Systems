@@ -24,6 +24,7 @@ dynamic = ['readme']
 dependencies = [
     'pandas>=1.4.3',
     'lxml>=4.9.1',
+    'defusedxml>=0.7.1',
     ]
 
 
@@ -37,7 +38,6 @@ dev = [
 'pytest>=7.1.2',
 'coverage>=6.4.2',
 'pre-commit>=2.20.0',
-'defusedxml>=0.7.1'
 ]
 
 [project.urls]

@@ -17,12 +17,16 @@ class sports_season:
 
     def all_stats(self, printout=False):
         self.sos(printout=printout)
+        self.sos_bcs(printout=printout)
         self.sov(printout=printout)
         self.srs(printout=printout)
         self.pythagorean_expectation(printout=printout)
+        self.CPI(printout=printout)
+        self.RPI(printout=printout)
+        self.square_gear_rating(printout=printout)
 
     def sos(self, printout=False):
-        # combined win % of all teams facing them
+        # combined win % of all teams facing them. This is used in several other calculations below
         for team_name in self.teams:
             dubs = 0
             games = 0
@@ -34,6 +38,21 @@ class sports_season:
             if printout:
                 print(team_name, "sos", self.teams.get(team_name).sos)
 
+    def sos_bcs(self, printout=False):
+        if not hasattr(self.teams.get(list(self.teams.keys())[0]), "sos"):
+            self.sos()
+
+        for team_name in self.teams:
+            li = []
+            for opp_name in self.teams.get(team_name).opponents:
+                li.append(self.teams.get(opp_name).sos)
+
+            opp_pct = self.teams.get(team_name).sos
+            opp_opp_pct = sum(li) / len(li)
+            self.teams.get(team_name).sos_bcs = ((opp_pct * 2) + (opp_opp_pct * 1)) / 3
+            if printout:
+                print(team_name, "sos_bcs", self.teams.get(team_name).sos_bcs)
+
     def sov(self, printout=False):
         # combined win % of all teams facing them they BEAT
         for team_name in self.teams:
@@ -42,7 +61,7 @@ class sports_season:
             opp_list = self.teams.get(team_name).beaten_opponents
             for opp in opp_list:
                 dubs = dubs + self.teams.get(opp).wins
-                games = self.teams.get(opp).wins + self.teams.get(opp).losses + self.teams.get(opp).ties
+                games = games + self.teams.get(opp).wins + self.teams.get(opp).losses + self.teams.get(opp).ties
             self.teams.get(team_name).sov = dubs / games if games else 0
             if printout:
                 print(team_name, "sov", self.teams.get(team_name).sov)
@@ -76,24 +95,78 @@ class sports_season:
                 print(ea[0], ea[1])
 
     def pythagorean_expectation(self, printout=False):
-        expon = 2.37
         for team_name in self.teams:
-            expectation = self.teams.get(team_name).points_for ** expon / (
-                (self.teams.get(team_name).points_for ** expon) + (self.teams.get(team_name).points_against ** expon)
+            team_obj = self.teams.get(team_name)
+            expectation = (team_obj.points_for**team_obj.expon) / (
+                (team_obj.points_for**team_obj.expon) + (team_obj.points_against**team_obj.expon)
             )
             self.teams.get(team_name).pythagorean_expectation = expectation
             if printout:
                 print(team_name, "expectation", expectation)
+
+    def CPI(self, printout=False):
+        # (Win% ** 3) * (Opp% ** 2) * (Opp_Opp ** 1)... so SOS ?
+        if not hasattr(self.teams.get(list(self.teams.keys())[0]), "sos"):
+            self.sos()
+
+        for team_name in self.teams:
+            li = []
+            for opp_name in self.teams.get(team_name).opponents:
+                li.append(self.teams.get(opp_name).sos)
+
+            win_pct = self.teams.get(team_name).wins / sum(
+                self.teams.get(team_name).wins, self.teams.get(team_name).losses, self.teams.get(team_name).ties
+            )
+            opp_pct = self.teams.get(team_name).sos
+            opp_opp_pct = sum(li) / len(li)
+            self.teams.get(team_name).cpi = (win_pct**3) * (opp_pct**2) * (opp_opp_pct**1)
+            if printout:
+                print(team_name, "cpi", self.teams.get(team_name).cpi)
+
+    def RPI(self, printout=False):
+        # (Win% .25) + (Opp% * .5) + (Opp_Opp * .25)
+        if not hasattr(self.teams.get(list(self.teams.keys())[0]), "sos"):
+            self.sos()
+
+        for team_name in self.teams:
+            li = []
+            for opp_name in self.teams.get(team_name).opponents:
+                li.append(self.teams.get(opp_name).sos)
+
+            win_pct = self.teams.get(team_name).wins / sum(
+                self.teams.get(team_name).wins, self.teams.get(team_name).losses, self.teams.get(team_name).ties
+            )
+            opp_pct = self.teams.get(team_name).sos
+            opp_opp_pct = sum(li) / len(li)
+            self.teams.get(team_name).cpi = (win_pct * 0.25) + (opp_pct * 0.5) + (opp_opp_pct * 0.25)
+            if printout:
+                print(team_name, "rpi", self.teams.get(team_name).rpi)
+
+    def square_gear_rating(self, printout=False):
+        # (Win% + Opp% + Opp_Opp%)/3
+        if not hasattr(self.teams.get(list(self.teams.keys())[0]), "sos"):
+            self.sos()
+
+        for team_name in self.teams:
+            li = []
+            for opp_name in self.teams.get(team_name).opponents:
+                li.append(self.teams.get(opp_name).sos)
+
+            win_pct = self.teams.get(team_name).wins / sum(
+                self.teams.get(team_name).wins, self.teams.get(team_name).losses, self.teams.get(team_name).ties
+            )
+            opp_pct = self.teams.get(team_name).sos
+            opp_opp_pct = sum(li) / len(li)
+            self.teams.get(team_name).square_gear_rating = (win_pct + opp_pct + opp_opp_pct) / 3
+            if printout:
+                print(team_name, "square_gear_rating", self.teams.get(team_name).square_gear_rating)
 
 
 class nfl_team:
     def __init__(team, name):
         # team here replaces "self"
         team.team_name = name
-        team.sos = 0
-        team.sov = 0
-        team.srs = 0
-        team.pythagorean_expectation = 0
+        team.expon = 2.37  # for the Pythagorean Expectation calculation. Depends on sport
 
     def _team_info_for_year(team, team_name, year):
         # team here replaces "self"
@@ -120,10 +193,7 @@ class ncaa_team:
     def __init__(team, name):
         # team here replaces "self"
         team.team_name = name
-        team.sos = 0
-        team.sov = 0
-        team.srs = 0
-        team.pythagorean_expectation = 0
+        team.expon = 2.37  # for the Pythagorean Expectation calculation. Depends on sport
 
     def _team_info_for_year(team, team_name, year):
         # team here replaces "self"
@@ -152,10 +222,10 @@ class ncaa_team:
 
 def main():
     NFL2020 = sports_season(2020, nfl_team, config.nfl_teams)
-    NFL2020.all_stats()
+    NFL2020.sos_bcs(printout=True)
 
-    NCAA2019 = sports_season(2019, ncaa_team, config.ncaa_teams)
-    NCAA2019.all_stats()
+    # NCAA2019 = sports_season(2019, ncaa_team, config.ncaa_teams)
+    # NCAA2019.all_stats()
 
 
 if __name__ == "__main__":

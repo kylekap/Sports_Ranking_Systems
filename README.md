@@ -13,17 +13,33 @@
 
 ## About
 Generates:
-- SOS
-- SOV
-- SRS
-- Pythagorean Expectation (win %)
+- Strength of Schedule (SOS)
+- Strength of Victory (SOV)
+- Simple Rating System (SRS)
+- Pythagorean Expectation (Expected win %)
+- Comparative Performance Index (CPI)
+- Rating Percentage Index (RPI)
+- Square Gear rating
 
-For NFL & NCAA teams in a given season.
 
-
+Can be used for NFL & NCAA teams in a given season
 
 
 ## Contents
 - [Project](#football-sos)
   - [About](#about)
   - [Contents](#contents)
+
+
+## Future Plans
+- Add ELO
+- Add BRR
+- Add Colley Matrix Method
+- Add MJS
+
+Possible to add additional sports to this as well? But would need more research into effective ways of getting those scores, and would be expansion of the scope of the project.
+NCAAM / NCAAW
+NBA / WNBA
+
+## Caveats
+Non FBS team games are ignored in NCAAF, which will slightly alter vs "true" versions of those algorithms.  
