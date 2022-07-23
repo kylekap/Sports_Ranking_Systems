@@ -10,7 +10,11 @@ class test_core(unittest.TestCase):
     NFL2020 = core.sports_season(2020, core.nfl_team, config.nfl_teams)
     NFL2020.all_stats()
 
+    def test_test(self):
+        self.assertEqual(True, True)
+
     """
+    # removed tests until better tests are established.
     def test_nfl_wins(self):
         self.assertEqual(self.NFL2020.teams.get("clt").wins, 11)
 
