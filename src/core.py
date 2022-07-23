@@ -114,8 +114,8 @@ class sports_season:
             for opp_name in self.teams.get(team_name).opponents:
                 li.append(self.teams.get(opp_name).sos)
 
-            win_pct = self.teams.get(team_name).wins / sum(
-                self.teams.get(team_name).wins, self.teams.get(team_name).losses, self.teams.get(team_name).ties
+            win_pct = self.teams.get(team_name).wins / (
+                self.teams.get(team_name).wins + self.teams.get(team_name).losses + self.teams.get(team_name).ties
             )
             opp_pct = self.teams.get(team_name).sos
             opp_opp_pct = sum(li) / len(li)
@@ -133,8 +133,8 @@ class sports_season:
             for opp_name in self.teams.get(team_name).opponents:
                 li.append(self.teams.get(opp_name).sos)
 
-            win_pct = self.teams.get(team_name).wins / sum(
-                self.teams.get(team_name).wins, self.teams.get(team_name).losses, self.teams.get(team_name).ties
+            win_pct = self.teams.get(team_name).wins / (
+                self.teams.get(team_name).wins + self.teams.get(team_name).losses + self.teams.get(team_name).ties
             )
             opp_pct = self.teams.get(team_name).sos
             opp_opp_pct = sum(li) / len(li)
@@ -152,8 +152,8 @@ class sports_season:
             for opp_name in self.teams.get(team_name).opponents:
                 li.append(self.teams.get(opp_name).sos)
 
-            win_pct = self.teams.get(team_name).wins / sum(
-                self.teams.get(team_name).wins, self.teams.get(team_name).losses, self.teams.get(team_name).ties
+            win_pct = self.teams.get(team_name).wins / (
+                self.teams.get(team_name).wins + self.teams.get(team_name).losses + self.teams.get(team_name).ties
             )
             opp_pct = self.teams.get(team_name).sos
             opp_opp_pct = sum(li) / len(li)
