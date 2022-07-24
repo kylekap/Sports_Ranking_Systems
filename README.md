@@ -25,7 +25,7 @@ Generates:
 - Square Gear rating
 
 
-Can be used for NFL & NCAA teams in a given season
+Can be used for leagues as listed below
 
 
 ## Contents
