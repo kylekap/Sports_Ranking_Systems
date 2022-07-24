@@ -35,16 +35,39 @@ Can be used for NFL & NCAA teams in a given season
   - [Future Plans](#future-plans)
   - [Caveats](#caveats)  
 
+## Current Leagues
+- Baseball
+  - MLB
+
+- Basketball
+  - NBA
+  - WNBA
+  - NCAAM
+
+- Football
+  - NFL
+  - NCAAF
+
+- Hockey
+  - NHL
 
 ## Future Plans
-- Add ELO
-- Add BRR
-- Add Colley Matrix Method
-- Add MJS
+- Rating Systems
+  - Add ELO
+  - Add BRR
+  - Add Colley Matrix Method
+  - Add MJS
 
-Possible to add additional sports to this as well? But would need more research into effective ways of getting those scores, and would be expansion of the scope of the project.
-NCAAM / NCAAW
-NBA / WNBA
+- Leagues
+  - NCAAW
+  - MLS
+  - NWSL
+
+
+MLS, NCAAW, NWSL appear to be out of the ordinary for the other systems of scores. Additional resarch needed to find better layouts
+
+Dealing with "eras", or team movements, by league.
 
 ## Caveats
-Non FBS team games are ignored in NCAAF, which will slightly alter vs "true" versions of those algorithms.  
+Non FBS team games are ignored in NCAAF, which will slightly alter vs "true" versions of those algorithms.
+Some teams have moved cities. If a time period before the current location is used, the team is dropped from calculations.

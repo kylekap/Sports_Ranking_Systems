@@ -3,14 +3,15 @@ import unittest
 
 # First-party/Local
 import config
-import core
+import sports_classes
 
 
 class test_core(unittest.TestCase):
-    NFL2020 = core.sports_season(2020, core.nfl_team, config.nfl_teams)
-    NFL2020.all_stats()
+    def test_all(self):
+        for key, val in config.config_info.items():
+            Season2020 = sports_classes.sports_season(2020, key, sports_classes.sports_team)
+            Season2020.all_stats()
 
-    def test_test(self):
         self.assertEqual(True, True)
 
     """
