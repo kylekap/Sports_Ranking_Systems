@@ -50,9 +50,11 @@ class sports_team:
         df = df[df["Result"].isin(["W", "L", "T"]) & df["Game#"].isin(range(1, 200))]  # Ensures regular season
         df["Opponent"] = util.loop_replace_li(list(df["Opponent"]), config.ncaa_ranks)  # Remove NCAA rankings
         df["Opponent"] = [
-            "nan"
-            if x not in team._sports_teams and x not in team._sports_teams.values()
-            else team._sports_teams.get(x, x)
+            (
+                "nan"
+                if x not in team._sports_teams and x not in team._sports_teams.values()
+                else team._sports_teams.get(x, x)
+            )
             for x in [str(x) for x in df["Opponent"]]
         ]  # Ensure opponent is in the league
         df = df.loc[df["Opponent"] != "nan"]  # Remove invalid opponents or bye weeks
